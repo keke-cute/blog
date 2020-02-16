@@ -1,4 +1,12 @@
 baseURL = "http://example.org/"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "kekeLAND"
 theme = "simple"
+[params]
+subtitle = "You Are Always Alone/"
+favicon = "/<path-to-site-icon>/logo.ico"
+githubUrl = "https://github.com/keke-cute/blog/"
+referrer = "always"
+author = "keke"
+description = "..."
+keywords = "blog"
