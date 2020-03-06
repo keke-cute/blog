@@ -11,3 +11,11 @@ referrer = "always"
 author = "keke"
 description = "..."
 keywords = "blog"
+[[menu.main]]
+weight = 10
+name = "Posts"
+url = "/posts/"
+[[menu.main]]
+weight = 20
+name = "Emacs"
+url = "/posts/myemacsconf/"
