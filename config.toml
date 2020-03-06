@@ -2,6 +2,7 @@ baseURL = "http://example.org/"
 languageCode = "en-us"
 title = "kekeLAND"
 theme = "simple"
+copyright = "by Keke @2020 [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/deed.zh)"
 [params]
 subtitle = "You Are Always Alone/"
 favicon = "/<path-to-site-icon>/logo.ico"
