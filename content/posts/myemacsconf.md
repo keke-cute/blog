@@ -160,6 +160,20 @@ creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 ```
 
 
+### xah-math-input {#xah-math-input}
+
+```emacs-lisp
+(straight-use-package 'xah-math-input)
+```
+
+
+### magit {#magit}
+
+```emacs-lisp
+(straight-use-package 'magit)
+```
+
+
 ## 键位配置 {#键位配置}
 
 ```emacs-lisp
@@ -181,6 +195,13 @@ creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+```
+
+
+## Org-mode {#org-mode}
+
+```emacs-lisp
+(add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 ```
 
 
