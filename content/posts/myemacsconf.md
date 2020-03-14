@@ -6,7 +6,7 @@ draft = false
 creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 +++
 
-## last update:<span class="timestamp-wrapper"><span class="timestamp">&lt;2020-03-12 Thu&gt;</span></span> {#last-update}
+## last update:<span class="timestamp-wrapper"><span class="timestamp">&lt;2020-03-14 Sat&gt;</span></span> {#last-update}
 
 
 ## 初始化 straight.el 插件管理 {#初始化-straight-dot-el-插件管理}
@@ -34,6 +34,23 @@ creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 ```
 
 
+## 载入启动界面 {#载入启动界面}
+
+```emacs-lisp
+(straight-use-package 'dashboard)
+(use-package dashboard
+  :config
+  (dashboard-setup-startup-hook)
+  (setq dashboard-banner-logo-title ";;; Happy Hacking Keke , Emacs Love You ~")
+  ;;(setq dashboard-startup-banner "~/.emacs.d/img/logo.png")
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-items '((recents  . 5)
+			(agenda . 5)))
+  (setq dashboard-set-file-icons t))
+
+```
+
+
 ## 主程序的一些设置 {#主程序的一些设置}
 
 
@@ -52,9 +69,9 @@ creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 ### 透明度 {#透明度}
 
 ```emacs-lisp
-;;(add-to-list 'default-frame-alist'(ns-transparent-titlebar . t))
-;;(add-to-list 'default-frame-alist'(ns-appearance . dark))
-;;(add-to-list 'default-frame-alist'(alpha . (80 . 75)))
+(add-to-list 'default-frame-alist'(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist'(ns-appearance . dark))
+(add-to-list 'default-frame-alist'(alpha . (80 . 75)))
 ```
 
 
@@ -81,7 +98,7 @@ creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 ;;(load-theme 'dracula t)
 ;; 设置字体
-;;(set-frame-(format "message" format-args)ont "Sarasa Mono SC 14")
+(set-frame-font "Operator Mono 16")
 ```
 
 
@@ -103,7 +120,7 @@ creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
 	doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-tomorrow-day t)
+  (load-theme 'doom-dracula t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
