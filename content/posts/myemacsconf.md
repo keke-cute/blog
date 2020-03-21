@@ -9,6 +9,11 @@ creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 ## last update:<span class="timestamp-wrapper"><span class="timestamp">&lt;2020-03-14 Sat&gt;</span></span> {#last-update}
 
 
+## Preview {#preview}
+
+{{< figure src="https://s1.ax1x.com/2020/03/21/8hgl8O.png" >}}
+
+
 ## 初始化 straight.el 插件管理 {#初始化-straight-dot-el-插件管理}
 
 ```emacs-lisp
