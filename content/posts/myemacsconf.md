@@ -6,7 +6,7 @@ draft = false
 creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 +++
 
-## last update:<span class="timestamp-wrapper"><span class="timestamp">&lt;2020-03-21 Sat&gt;</span></span> {#last-update}
+## last update:<span class="timestamp-wrapper"><span class="timestamp">&lt;2020-03-24 Tue&gt;</span></span> {#last-update}
 
 
 ## Preview {#preview}
@@ -98,14 +98,17 @@ creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 ```
 
 
-### 主题&字体 {#主题-and-字体}
+### 字体 {#字体}
 
 ```emacs-lisp
-;; 设置主题
-;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-;;(load-theme 'dracula t)
 ;; 设置字体
-(set-frame-font "Operator Mono 16")
+(cond
+ ((string-equal system-type "darwin")
+  (progn
+    (set-frame-font "Operator Mono 16")))
+ ((string-equal system-type "gnu/linux")
+  (progn
+    (set-frame-font "Operator Mono 12"))))
 ```
 
 
@@ -140,6 +143,13 @@ creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
+```
+
+
+## Org-mode {#org-mode}
+
+```emacs-lisp
+(add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 ```
 
 
@@ -275,20 +285,11 @@ creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 ```
 
 
-## Org-mode {#org-mode}
-
-```emacs-lisp
-(add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
-```
-
-
 ## keke-run-current-file(fork to leexah) {#keke-run-current-file--fork-to-leexah}
 
 ```emacs-lisp
 (defvar keke-run-current-file-before-hook nil "Hook for `keke-run-current-file'. Before the file is run.")
-
 (defvar keke-run-current-file-after-hook nil "Hook for `keke-run-current-file'. After the file is run.")
-
 (defun keke-run-current-file ()
   (interactive)
   (let (
