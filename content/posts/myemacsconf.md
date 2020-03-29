@@ -6,13 +6,21 @@ draft = false
 creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 +++
 
-## last update:<span class="timestamp-wrapper"><span class="timestamp">&lt;2020-03-24 Tue&gt;</span></span> {#last-update}
+## last update:<span class="timestamp-wrapper"><span class="timestamp">&lt;2020-03-29 Sun&gt;</span></span> {#last-update}
 
 
 ## Preview {#preview}
 
-![](https://s1.ax1x.com/2020/03/21/8hha36.png)
-![](https://s1.ax1x.com/2020/03/22/8IESj1.png)
+![](https://s1.ax1x.com/2020/03/29/GVOav9.png)
+![](https://s1.ax1x.com/2020/03/29/GVON34.png)
+
+
+## Is A? {#is-a}
+
+```emacs-lisp
+(defconst *is-a-mac* (eq system-type 'darwin))
+(defconst *is-a-linux* (eq system-type 'gnu/linux))
+```
 
 
 ## 初始化 straight.el 插件管理 {#初始化-straight-dot-el-插件管理}
@@ -36,8 +44,10 @@ creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 ## 预下载基础包 {#预下载基础包}
 
 ```emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/el/")
 (straight-use-package 'use-package)
 (straight-use-package 'posframe)
+(straight-use-package 'company)
 ```
 
 
@@ -49,7 +59,7 @@ creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
   :config
   (dashboard-setup-startup-hook)
   (setq dashboard-banner-logo-title ";;; Happy Hacking Keke , Emacs Love You ~")
-  ;;(setq dashboard-startup-banner "~/.emacs.d/img/logo.png")
+  (setq dashboard-startup-banner "~/.emacs.d/logo.png")
   (setq dashboard-set-heading-icons t)
   (setq dashboard-items '((recents  . 5)
 			(agenda . 5)))
@@ -101,14 +111,10 @@ creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 ### 字体 {#字体}
 
 ```emacs-lisp
-;; 设置字体
-(cond
- ((string-equal system-type "darwin")
-  (progn
-    (set-frame-font "Operator Mono 16")))
- ((string-equal system-type "gnu/linux")
-  (progn
-    (set-frame-font "Operator Mono 12"))))
+(when *is-a-mac*
+  (set-frame-font "Operator Mono 16"))
+(when *is-a-linux*
+  (set-frame-font "Operator Mono 12"))
 ```
 
 
@@ -211,53 +217,51 @@ creator = "Emacs 26.3 (Org mode 9.3.6 + ox-hugo)"
 ```
 
 
-### pyim {#pyim}
+### rime {#rime}
 
 ```emacs-lisp
- (straight-use-package 'pyim)
- (use-package pyim
-:ensure nil
-:demand t
-:config
-;; 激活 basedict 拼音词库，五笔用户请继续阅读 README
-(use-package pyim-basedict
-  :ensure nil
-  :config (pyim-basedict-enable))
+(use-package rime
+	     :straight (rime :type git
+			     :host github
+			     :repo "DogLooksGood/emacs-rime"
+			     :files ("rime.el" "Makefile" "lib.c"))
+	     :custom
+	     (rime-show-candidate 'posframe)
+	     (default-input-method "rime"))
+(when *is-a-mac*
+  (use-package rime
+	       :custom
+	       (rime-librime-root "~/.emacs.d/librime/dist")))
+```
 
-(setq default-input-method "pyim")
 
-;; 我使用全拼
-(setq pyim-default-scheme 'xiaohe-shuangpin)
+### nox {#nox}
 
-;; 设置 pyim 探针设置，这是 pyim 高级功能设置，可以实现 *无痛* 中英文切换 :-)
-;; 我自己使用的中英文动态切换规则是：
-;; 1. 光标只有在注释里面时，才可以输入中文。
-;; 2. 光标前是汉字字符时，才能输入中文。
-;; 3. 使用 M-j 快捷键，强制将光标前的拼音字符串转换为中文。
-(setq-default pyim-english-input-switch-functions
-	      '(pyim-probe-dynamic-english
-		pyim-probe-isearch-mode
-		pyim-probe-program-mode
-		pyim-probe-org-structure-template))
+```emacs-lisp
+(require 'nox)
 
-(setq-default pyim-punctuation-half-width-functions
-	      '(pyim-probe-punctuation-line-beginning
-		pyim-probe-punctuation-after-punctuation))
+(dolist (hook (list
+	       'js-mode-hook
+	       'rust-mode-hook
+	       'python-mode-hook
+	       'ruby-mode-hook
+	       'java-mode-hook
+	       'sh-mode-hook
+	       'php-mode-hook
+	       'c-mode-common-hook
+	       'c-mode-hook
+	       'c++-mode-hook
+	       'haskell-mode-hook
+	       ))
+  (add-hook hook '(lambda () (nox-ensure))))
 
-;; 开启拼音搜索功能
-(pyim-isearch-mode 1)
+```
 
-;; 使用 popup-el 来绘制选词框, 如果用 emacs26, 建议设置
-;; 为 'posframe, 速度很快并且菜单不会变形，不过需要用户
-;; 手动安装 posframe 包。
-(setq pyim-page-tooltip 'posframe)
 
-;; 选词框显示5个候选词
-(setq pyim-page-length 5)
+### company {#company}
 
-:bind
-(("M-j" . pyim-convert-string-at-point) ;与 pyim-probe-dynamic-english 配合
- ("C-;" . pyim-delete-word-from-personal-buffer)))
+```emacs-lisp
+(add-hook 'after-init-hook 'global-company-mode)
 ```
 
 
